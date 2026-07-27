@@ -32,3 +32,16 @@ export function isSupabaseConfigured(): boolean {
     import.meta.env.VITE_SUPABASE_URL !== 'https://demo-project.supabase.co'
   );
 }
+
+export async function isSupabaseAuthenticated(userId?: string): Promise<boolean> {
+  if (!isSupabaseConfigured()) return false;
+  try {
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session || !session.user) return false;
+    if (userId && session.user.id !== userId) return false;
+    return true;
+  } catch {
+    return false;
+  }
+}
+

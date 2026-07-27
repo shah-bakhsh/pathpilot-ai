@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { supabase, isSupabaseConfigured } from './supabase';
+import { supabase, isSupabaseConfigured, isSupabaseAuthenticated } from './supabase';
 import {
   AiConversation,
   AiMessage,
@@ -63,6 +63,13 @@ function isValidUUID(str: string): boolean {
   return /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(str);
 }
 
+async function canUseSupabase(userId?: string): Promise<boolean> {
+  if (!isSupabaseConfigured()) return false;
+  if (userId && !isValidUUID(userId)) return false;
+  return await isSupabaseAuthenticated(userId);
+}
+
+
 export interface CoachSettings {
   personalityStyle: 'direct' | 'supportive' | 'socratic' | 'executive';
   includeResumeContext: boolean;
@@ -84,7 +91,7 @@ const DEFAULT_SETTINGS: CoachSettings = {
 export class AiCoachService {
   // --- CONVERSATIONS ---
   static async getConversations(userId: string): Promise<AiConversation[]> {
-    if (isSupabaseConfigured() && isValidUUID(userId)) {
+    if (await canUseSupabase(userId)) {
       try {
         const { data, error } = await supabase
           .from('ai_conversations')
@@ -136,7 +143,7 @@ export class AiCoachService {
       messagesCount: 0
     };
 
-    if (isSupabaseConfigured() && isValidUUID(userId)) {
+    if (await canUseSupabase(userId)) {
       try {
         const { data, error } = await supabase
           .from('ai_conversations')
@@ -171,7 +178,7 @@ export class AiCoachService {
     convId: string,
     updates: Partial<AiConversation>
   ): Promise<void> {
-    if (isSupabaseConfigured() && isValidUUID(convId) && isValidUUID(userId)) {
+    if (isValidUUID(convId) && (await canUseSupabase(userId))) {
       try {
         const payload: any = { updated_at: new Date().toISOString() };
         if (updates.title !== undefined) payload.title = updates.title;
@@ -200,7 +207,7 @@ export class AiCoachService {
   }
 
   static async deleteConversation(userId: string, convId: string): Promise<void> {
-    if (isSupabaseConfigured() && isValidUUID(convId) && isValidUUID(userId)) {
+    if (isValidUUID(convId) && (await canUseSupabase(userId))) {
       try {
         await supabase
           .from('ai_conversations')
@@ -224,7 +231,7 @@ export class AiCoachService {
 
   // --- MESSAGES ---
   static async getMessages(userId: string, convId: string): Promise<AiMessage[]> {
-    if (isSupabaseConfigured() && isValidUUID(convId)) {
+    if (isValidUUID(convId) && (await canUseSupabase(userId))) {
       try {
         const { data, error } = await supabase
           .from('ai_messages')
@@ -273,7 +280,7 @@ export class AiCoachService {
       contextUsed
     };
 
-    if (isSupabaseConfigured() && isValidUUID(convId) && isValidUUID(userId)) {
+    if (isValidUUID(convId) && (await canUseSupabase(userId))) {
       try {
         const { data, error } = await supabase
           .from('ai_messages')
@@ -312,7 +319,7 @@ export class AiCoachService {
 
   // --- MEMORY FACTS SYSTEM ---
   static async getMemoryFacts(userId: string): Promise<AiMemoryFact[]> {
-    if (isSupabaseConfigured()) {
+    if (await canUseSupabase(userId)) {
       try {
         const { data, error } = await supabase
           .from('ai_memory')
@@ -356,7 +363,7 @@ export class AiCoachService {
       updatedAt: new Date().toISOString()
     };
 
-    if (isSupabaseConfigured()) {
+    if (await canUseSupabase(userId)) {
       try {
         const { data } = await supabase
           .from('ai_memory')
@@ -388,7 +395,7 @@ export class AiCoachService {
   }
 
   static async deleteMemoryFact(userId: string, factId: string): Promise<void> {
-    if (isSupabaseConfigured()) {
+    if (await canUseSupabase(userId)) {
       try {
         await supabase
           .from('ai_memory')

@@ -27,9 +27,14 @@ const ALLOWED_MIME_TYPES = [
 ];
 
 // Ensure local persistence directory exists
-if (!fs.existsSync(DATA_DIR)) {
-  fs.mkdirSync(DATA_DIR, { recursive: true });
+try {
+  if (!fs.existsSync(DATA_DIR)) {
+    fs.mkdirSync(DATA_DIR, { recursive: true });
+  }
+} catch {
+  // Read-only serverless environment
 }
+
 
 // LowDB-like simple JSON file persistence to prevent data loss on server restart
 interface DatabaseSchema {
@@ -72,24 +77,23 @@ function loadDatabase() {
     if (fs.existsSync(DB_FILE)) {
       const data = fs.readFileSync(DB_FILE, 'utf-8');
       db = { ...DEFAULT_DB_STATE, ...JSON.parse(data) };
-    } else {
-      saveDatabase();
     }
   } catch (err) {
-    console.error('Failed to load database. Initializing default state.', err);
     db = { ...DEFAULT_DB_STATE };
   }
 }
 
 function saveDatabase() {
   try {
+    if (!fs.existsSync(DATA_DIR)) return;
     const tempFile = `${DB_FILE}.tmp`;
     fs.writeFileSync(tempFile, JSON.stringify(db, null, 2), 'utf-8');
     fs.renameSync(tempFile, DB_FILE);
   } catch (err) {
-    console.error('Failed to persist database file.', err);
+    // Read-only filesystem
   }
 }
+
 
 // Load DB immediately
 loadDatabase();
@@ -233,8 +237,10 @@ class GeminiAIService {
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
 
-        // Normalize model to valid Google Gemini model (mapping fictional gemini-3.x to gemini-2.5-flash)
-        const targetModel = (config.model && !config.model.includes('gemini-3.') && config.model !== 'gemini-2.5-flash') ? config.model : 'gemini-2.5-flash';
+        // Normalize model to valid Google Gemini model
+        const rawModel = config.model || 'gemini-2.0-flash';
+        const targetModel = (rawModel.includes('gemini-1.5') || rawModel.includes('gemini-2.0')) ? rawModel : 'gemini-2.0-flash';
+
 
         // Call the models API
         const responsePromise = this.aiClient.models.generateContent({
