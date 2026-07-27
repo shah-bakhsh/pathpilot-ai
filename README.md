@@ -146,9 +146,8 @@ PathPilot AI features a sleek, high-contrast dark design system built with custo
 ### 1. 🤖 AI Career Coach & Intelligence Platform
 The primary interactive AI workspace powered by **Google Gemini 2.5 Flash** with persistent context memory synced to Supabase PostgreSQL.
 
-```markdown
 ![AI Career Coach Workspace](./docs/images/ai-coach-workspace.png)
-```
+
 - **Live Trajectory Syncing**: Displays real-time sync status (`Live Trajectory Synced`) with current user profile context.
 - **Multi-Tab Intelligence Suite**: Switch between **Chat Workspace**, **Chat Vault**, **Career Insights**, **Recommendations**, **Learning Paths**, and **Goal Planning**.
 - **Multi-Persona Mentorship**: Toggle between **PathPilot Guide** (Encouraging), **Direct Recruiter**, **Strict Technical Interviewer**, and **Executive Mentor**.
@@ -159,9 +158,8 @@ The primary interactive AI workspace powered by **Google Gemini 2.5 Flash** with
 ### 2. 🎯 Executive SaaS Launchpad & Dashboard Overview
 Central command center providing immediate access to all core platform tools, active application streaks, and live execution activity.
 
-```markdown
 ![Executive Dashboard Launchpad](./docs/images/dashboard-launchpad.png)
-```
+
 - **Direct Workspace Shortcuts**: One-click launcher for **Resume Studio**, **ATS Diagnostic**, **AI Career Coach**, **Interview Simulator**, **Career Roadmap**, **Job Application Kanban**, **Learning Hub**, **Encrypted Vault**, and **Saved Opportunities**.
 - **Real-Time Execution Activity**: Live event audit stream logging document updates, interview simulations, and AI recommendations.
 - **Streak & XP Counter**: Tracks active daily pipeline streak (e.g. `1 Day Pipeline Streak`) and Pathfinder level progression.
@@ -171,9 +169,8 @@ Central command center providing immediate access to all core platform tools, ac
 ### 3. 🎓 Personalized Learning & Skill Gap Engine
 Adaptive learning workspace dynamically identifying skill gaps aligned with candidate target roles and plotting targeted syllabi.
 
-```markdown
 ![Personalized Learning & Skill Engine](./docs/images/learning-skill-engine.png)
-```
+
 - **Metric Cards**: Real-time tracking of **Study Hours Logged** (38/60 hrs), **Active Streak** with XP consistency multipliers (1.5x), **Active Courses** (2 courses in progress), and **Skill Gap Closure Rate** (+78%).
 - **Interactive Workspaces**: Sub-tabs for **Roadmap**, **Skill Gap Analysis**, **Courses**, **Certifications**, **Projects**, and **Study Planner**.
 - **One-Click Gap Diagnostics**: Instant `Analyze Skill Gaps` engine calculating market readiness for targeted engineering roles.
@@ -183,9 +180,8 @@ Adaptive learning workspace dynamically identifying skill gaps aligned with cand
 ### 4. 🔍 Command Palette Search Overlay (`Cmd+K` / `Ctrl+K`)
 Keyboard-first modal search overlay enabling instant navigation across the entire application viewport.
 
-```markdown
 ![Platform Command Palette](./docs/images/command-palette.png)
-```
+
 - **Instant Shortcuts**: Navigate to **Dashboard Overview**, **Productivity OS**, **Task Manager**, **Notification Hub**, and **Global AI Ecosystem**.
 - **Keyboard Navigation**: Full arrow-key selection, `ENTER` execution, and `ESC` dismiss controls.
 
@@ -194,9 +190,8 @@ Keyboard-first modal search overlay enabling instant navigation across the entir
 ### 5. 🌐 Global AI Career Ecosystem
 Integrated community network connecting candidates, industry mentors, recruiters, and AI digital twin systems.
 
-```markdown
 ![Global AI Career Ecosystem](./docs/images/global-ecosystem-feed.png)
-```
+
 - **Community Feed & Insights**: Real-time feed featuring posts from industry AI research leaders and engineering directors.
 - **Ecosystem Tabs**: Navigation for **Community Feed**, **Mentor Marketplace**, **Recruiter Platform**, **AI Plugins & Packs**, and **AI Digital Twin & Voice**.
 - **Active Community Channels**: Instant join channels for **AI Systems Engineers**, **Stanford Alumni Network**, and regional tech channels.
