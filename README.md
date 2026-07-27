@@ -27,6 +27,9 @@
     <a href="./docs/DEPLOYMENT.md"><b>☁️ Deployment Guide</b></a>
   </p>
 
+  <br />
+  <img src="./docs/images/landing-page-hero.png" alt="PathPilot AI Landing Page Banner" width="100%" />
+
 </div>
 
 ---
@@ -139,11 +142,18 @@ Candidates can toggle AI coach personas in real-time:
 
 ---
 
-## 📸 4. Visual Interface & Screenshots
+### 1. 🚀 Platform Landing Page & Hero Banner
+The high-converting SaaS landing page presenting the **Autonomous AI Career Operating System** vision, interactive demo triggers, and feature navigation.
 
-PathPilot AI features a sleek, high-contrast dark design system built with custom CSS design tokens, glassmorphic overlays, responsive container grids, and Framer Motion micro-animations.
+![PathPilot AI Landing Page Banner](./docs/images/landing-page-hero.png)
 
-### 1. 🤖 AI Career Coach & Intelligence Platform
+- **Launch Badge**: Highlights platform version status (`VERSION 2.0 LAUNCH EVENT`).
+- **Call-to-Action Controls**: Direct triggers to **Calibrate Career Coordinates** and **Explore Platform Preview**.
+- **Navigation Bar**: Quick links for **Features**, **The Problem**, **The Solution**, **How It Works**, **Interactive Demo**, **FAQ**, and **Authentication**.
+
+---
+
+### 2. 🤖 AI Career Coach & Intelligence Platform
 The primary interactive AI workspace powered by **Google Gemini 2.5 Flash** with persistent context memory synced to Supabase PostgreSQL.
 
 ![AI Career Coach Workspace](./docs/images/ai-coach-workspace.png)
