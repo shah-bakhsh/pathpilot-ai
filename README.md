@@ -141,16 +141,80 @@ Candidates can toggle AI coach personas in real-time:
 
 ## 📸 4. Visual Interface & Screenshots
 
-PathPilot AI features a sleek, high-contrast dark design system built with custom CSS tokens, modern glassmorphism, and Framer Motion micro-animations.
+PathPilot AI features a sleek, high-contrast dark design system built with custom CSS design tokens, glassmorphic overlays, responsive container grids, and Framer Motion micro-animations.
 
-| Interface View | Description |
-| :--- | :--- |
-| **🎯 Executive Dashboard** | Comprehensive command center showing overall career readiness, active roadmaps, daily streaks, upcoming interviews, and recent applications. |
-| **📄 ATS Resume Diagnostic Engine** | Real-time resume match score generator, missing skill radar, and section-by-section structural improvement recommendations. |
-| **🗺️ 3-Phase Career Roadmap** | Interactive phase progression timeline with expandable milestones, resource links, and progress calculations. |
-| **🤖 AI Career Coach Workspace** | Real-time chat interface with persona switching, conversation history, and context-aware advice. |
-| **🎙️ AI Interview Simulator** | Live mock interview session renderer displaying AI questions, answer input fields, and real-time STAR method feedback. |
-| **📊 Kanban Job Tracker** | Visual drag-and-drop job application management board with status columns and offer tracking. |
+### 1. 🤖 AI Career Coach & Intelligence Platform
+The primary interactive AI workspace powered by **Google Gemini 2.5 Flash** with persistent context memory synced to Supabase PostgreSQL.
+
+```markdown
+![AI Career Coach Workspace](./docs/images/ai-coach-workspace.png)
+```
+- **Live Trajectory Syncing**: Displays real-time sync status (`Live Trajectory Synced`) with current user profile context.
+- **Multi-Tab Intelligence Suite**: Switch between **Chat Workspace**, **Chat Vault**, **Career Insights**, **Recommendations**, **Learning Paths**, and **Goal Planning**.
+- **Multi-Persona Mentorship**: Toggle between **PathPilot Guide** (Encouraging), **Direct Recruiter**, **Strict Technical Interviewer**, and **Executive Mentor**.
+- **Memory Vault**: Manages persistent candidate facts, goals, and technical stack preferences.
+
+---
+
+### 2. 🎯 Executive SaaS Launchpad & Dashboard Overview
+Central command center providing immediate access to all core platform tools, active application streaks, and live execution activity.
+
+```markdown
+![Executive Dashboard Launchpad](./docs/images/dashboard-launchpad.png)
+```
+- **Direct Workspace Shortcuts**: One-click launcher for **Resume Studio**, **ATS Diagnostic**, **AI Career Coach**, **Interview Simulator**, **Career Roadmap**, **Job Application Kanban**, **Learning Hub**, **Encrypted Vault**, and **Saved Opportunities**.
+- **Real-Time Execution Activity**: Live event audit stream logging document updates, interview simulations, and AI recommendations.
+- **Streak & XP Counter**: Tracks active daily pipeline streak (e.g. `1 Day Pipeline Streak`) and Pathfinder level progression.
+
+---
+
+### 3. 🎓 Personalized Learning & Skill Gap Engine
+Adaptive learning workspace dynamically identifying skill gaps aligned with candidate target roles and plotting targeted syllabi.
+
+```markdown
+![Personalized Learning & Skill Engine](./docs/images/learning-skill-engine.png)
+```
+- **Metric Cards**: Real-time tracking of **Study Hours Logged** (38/60 hrs), **Active Streak** with XP consistency multipliers (1.5x), **Active Courses** (2 courses in progress), and **Skill Gap Closure Rate** (+78%).
+- **Interactive Workspaces**: Sub-tabs for **Roadmap**, **Skill Gap Analysis**, **Courses**, **Certifications**, **Projects**, and **Study Planner**.
+- **One-Click Gap Diagnostics**: Instant `Analyze Skill Gaps` engine calculating market readiness for targeted engineering roles.
+
+---
+
+### 4. 🔍 Command Palette Search Overlay (`Cmd+K` / `Ctrl+K`)
+Keyboard-first modal search overlay enabling instant navigation across the entire application viewport.
+
+```markdown
+![Platform Command Palette](./docs/images/command-palette.png)
+```
+- **Instant Shortcuts**: Navigate to **Dashboard Overview**, **Productivity OS**, **Task Manager**, **Notification Hub**, and **Global AI Ecosystem**.
+- **Keyboard Navigation**: Full arrow-key selection, `ENTER` execution, and `ESC` dismiss controls.
+
+---
+
+### 5. 🌐 Global AI Career Ecosystem
+Integrated community network connecting candidates, industry mentors, recruiters, and AI digital twin systems.
+
+```markdown
+![Global AI Career Ecosystem](./docs/images/global-ecosystem-feed.png)
+```
+- **Community Feed & Insights**: Real-time feed featuring posts from industry AI research leaders and engineering directors.
+- **Ecosystem Tabs**: Navigation for **Community Feed**, **Mentor Marketplace**, **Recruiter Platform**, **AI Plugins & Packs**, and **AI Digital Twin & Voice**.
+- **Active Community Channels**: Instant join channels for **AI Systems Engineers**, **Stanford Alumni Network**, and regional tech channels.
+
+---
+
+### Interface Matrix Summary
+
+| Interface View | Key Capability | Primary Components |
+| :--- | :--- | :--- |
+| **🤖 AI Career Coach** | 24/7 Context-Aware Mentorship | `MentorView.tsx`, `aiCoachService.ts` |
+| **🎯 SaaS Launchpad** | Direct Application Workspace Shortcuts | `DashboardView.tsx`, `dashboardService.ts` |
+| **🎓 Skill Gap Engine** | Targeted Course & Syllabus Tracking | `LearningView.tsx`, `learningService.ts` |
+| **🔍 Command Palette** | `Cmd+K` Keyboard-First Search Modal | `CommandPalette.tsx` |
+| **🌐 Global Ecosystem** | Community & Recruiter Network | `EcosystemGlobalView.tsx`, `ecosystemService.ts` |
+| **📄 ATS Resume Studio** | Match Score Radar & Skill Gap Diagnostic | `ResumeView.tsx`, `resumeService.ts` |
+| **🎙️ Interview Simulator** | Mock Technical & Behavioral Sessions | `InterviewView.tsx`, `aiInterviewService.ts` |
+| **📊 Application Kanban** | Drag-and-Drop Pipeline Tracking | `ApplicationsView.tsx`, `applicationService.ts` |
 
 ---
 
