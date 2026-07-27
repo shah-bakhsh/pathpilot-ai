@@ -1,0 +1,22 @@
+{
+  "short_name": "PathPilot",
+  "name": "PathPilot AI — Career GPS & Mentorship Platform",
+  "icons": [
+    {
+      "src": "/pwa-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/pwa-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#090d16",
+  "theme_color": "#2563eb",
+  "display": "standalone",
+  "orientation": "portrait",
+  "description": "Enterprise-grade AI Career Operating System providing real-time GPS trajectory navigation, resume optimizations, and STAR interview coaching."
+}

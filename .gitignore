@@ -1,0 +1,80 @@
+# ============================================================
+# PathPilot AI — Production Git Ignore Rules
+# ============================================================
+
+# 1. Dependencies
+node_modules/
+.pnpm-store/
+bun.lock
+
+# 2. Build & Production Outputs
+dist/
+build/
+out/
+.output/
+*.tsbuildinfo
+
+# 3. Environment & Secret Configuration
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+.env*.local
+!.env.example
+
+# 4. Local Persistence & Databases
+data/
+*.tmp
+*.bak
+*.sqlite
+*.db
+
+# 5. AI Studio & Cache Directories
+.aistudio
+*.aistudio
+assets/.aistudio
+.cache/
+.tmp/
+
+# 6. Supabase & Database SQL Scripts (Explicitly Ignored)
+.supabase/
+supabase-schema.sql
+supabase_schema.sql
+*.sql
+
+# 7. IDEs, Editors & Tooling
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.idea/
+*.iml
+*.ipr
+*.iws
+.project
+.classpath
+.settings/
+
+# 8. OS System Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# 9. Logs & Runtime Artifacts
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# 10. Test Coverage & Testing Artifacts
+coverage/
+.nyc_output/
