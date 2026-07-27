@@ -376,7 +376,7 @@ const schedulerInstance = new BackgroundScheduler();
 schedulerInstance.start();
 
 // Server Definition
-async function startServer() {
+function startServer() {
   const app = express();
 
   // Middleware for parsing JSON requests with strict limits
@@ -2695,15 +2695,15 @@ Output a JSON object containing:
   });
 
   // Vite middleware integration for asset compilation / dev mode routing
-  if (process.env.NODE_ENV !== 'production') {
-
-    const vite = await createViteServer({
+  if (process.env.NODE_ENV !== 'production' && !process.env.VERCEL) {
+    createViteServer({
       server: { middlewareMode: true },
       appType: 'spa',
+    }).then(vite => {
+      app.use(vite.middlewares);
+      console.log('PathPilot AI Server: Mounted Vite Development middleware.');
     });
-    app.use(vite.middlewares);
-    console.log('PathPilot AI Server: Mounted Vite Development middleware.');
-  } else {
+  } else if (!process.env.VERCEL) {
     const distPath = path.join(process.cwd(), 'dist');
     app.use(express.static(distPath));
     app.get('*', (req, res) => {
@@ -2712,18 +2712,23 @@ Output a JSON object containing:
     console.log('PathPilot AI Server: Serving compiled production assets.');
   }
 
-  const serverInstance = app.listen(PORT, '0.0.0.0', () => {
-    console.log(`PathPilot AI Server: Operating on port http://0.0.0.0:${PORT}`);
-  });
-
-  // Graceful shutdown procedure
-  process.on('SIGTERM', () => {
-    console.log('SIGTERM signal received: closing HTTP server...');
-    schedulerInstance.stop();
-    serverInstance.close(() => {
-      console.log('HTTP server closed.');
+  if (!process.env.VERCEL) {
+    const serverInstance = app.listen(PORT, '0.0.0.0', () => {
+      console.log(`PathPilot AI Server: Operating on port http://0.0.0.0:${PORT}`);
     });
-  });
+
+    // Graceful shutdown procedure
+    process.on('SIGTERM', () => {
+      console.log('SIGTERM signal received: closing HTTP server...');
+      schedulerInstance.stop();
+      serverInstance.close(() => {
+        console.log('HTTP server closed.');
+      });
+    });
+  }
+
+  return app;
 }
 
-startServer();
+const app = startServer();
+export default app;
