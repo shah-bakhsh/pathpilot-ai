@@ -1,7 +1,8 @@
 # PathPilot AI — Production Deployment Guide
 
-**Target Runtime:** Google Cloud Run (Containerized Node.js / Express + Vite SPA)  
-**Database Infrastructure:** Supabase PostgreSQL & Firebase/Supabase Auth  
+**Live Preview URL:** [https://pathpilot-ai-rust-phi.vercel.app](https://pathpilot-ai-rust-phi.vercel.app)  
+**Target Runtimes:** Vercel (Production Serverless SPA) & Google Cloud Run (Containerized Express + Vite)  
+**Database Infrastructure:** Supabase PostgreSQL & Supabase Auth  
 **Node Version:** Node.js 18 LTS or higher  
 
 ---

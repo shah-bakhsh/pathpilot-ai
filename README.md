@@ -11,6 +11,7 @@
 
   <p align="center">
     <a href="https://github.com/shahbakhsh/pathpilot-ai/actions"><img src="https://img.shields.io/badge/Build-Passing-brightgreen?style=for-the-badge&logo=github-actions&logoColor=white" alt="Build Status" /></a>
+    <a href="https://pathpilot-ai-rust-phi.vercel.app"><img src="https://img.shields.io/badge/Deployment-Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Vercel Live Demo" /></a>
     <a href="https://react.dev"><img src="https://img.shields.io/badge/React-19.0.1-61DAFB?style=for-the-badge&logo=react&logoColor=black" alt="React 19" /></a>
     <a href="https://typescriptlang.org"><img src="https://img.shields.io/badge/TypeScript-5.8.2-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript 5.8" /></a>
     <a href="https://vite.dev"><img src="https://img.shields.io/badge/Vite-6.4.3-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite 6" /></a>
@@ -21,7 +22,7 @@
   </p>
 
   <p align="center">
-    <a href="http://localhost:3000"><b>🚀 Try Live Demo</b></a> •
+    <a href="https://pathpilot-ai-rust-phi.vercel.app"><b>🚀 Try Live Demo</b></a> •
     <a href="./docs/ARCHITECTURE.md"><b>📖 Architecture Docs</b></a> •
     <a href="./docs/API_DOCUMENTATION.md"><b>📡 API Reference</b></a> •
     <a href="./docs/DEPLOYMENT.md"><b>☁️ Deployment Guide</b></a>
@@ -440,7 +441,7 @@ CREATE POLICY "Users manage their own data"
 ## ☁️ 11. Production Deployment
 
 ### Deployment to Vercel (Recommended)
-PathPilot AI is pre-configured for seamless deployment to **Vercel** via [`vercel.json`](./vercel.json):
+PathPilot AI is deployed live at **[https://pathpilot-ai-rust-phi.vercel.app](https://pathpilot-ai-rust-phi.vercel.app)** and pre-configured for seamless deployment to **Vercel** via [`vercel.json`](./vercel.json):
 1. Push your repository to GitHub.
 2. Import the repository into [Vercel](https://vercel.com).
 3. Set the environment variable `GEMINI_API_KEY` in the Vercel Dashboard.
