@@ -724,12 +724,20 @@ CUSTOM INSTRUCTIONS: ${settings.customInstructions || 'Be practical, direct, and
         })
       });
 
-      if (!response.ok) {
-        throw new Error(`Server returned status ${response.status}`);
-      }
+      let replyText = "I've processed your message and reviewed your career telemetry. Let's continue accelerating your career growth!";
 
-      const data = await response.json();
-      const replyText = data.text || "I've processed your message and reviewed your career telemetry. Let's continue accelerating your career growth!";
+      if (response.ok) {
+        try {
+          const data = await response.json();
+          if (data && data.text) {
+            replyText = data.text;
+          }
+        } catch {
+          // If response parsing fails, fallback reply is used
+        }
+      } else {
+        console.warn(`[AiCoachService] Server responded with status ${response.status}. Using fallback response.`);
+      }
 
       // 5. Save assistant reply
       await this.addMessage(userId, convId, 'assistant', replyText, {

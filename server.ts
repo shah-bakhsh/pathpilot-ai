@@ -129,8 +129,8 @@ class GeminiAIService {
   private baseDelayMs = 1000;
 
   constructor() {
-    const apiKey = process.env.GEMINI_API_KEY;
-    if (apiKey) {
+    const apiKey = process.env.GEMINI_API_KEY ? process.env.GEMINI_API_KEY.trim() : '';
+    if (apiKey && apiKey.startsWith('AIzaSy')) {
       this.aiClient = new GoogleGenAI({
         apiKey: apiKey,
         httpOptions: {
@@ -141,7 +141,7 @@ class GeminiAIService {
       });
       console.log('PathPilot AI Server: Secure Gemini SDK instance initialized.');
     } else {
-      console.warn('PathPilot AI Server: Running in AI simulated sandbox mode (GEMINI_API_KEY is not defined).');
+      console.warn('PathPilot AI Server: Running in AI simulated sandbox mode (GEMINI_API_KEY is not defined or invalid format).');
     }
   }
 
@@ -757,28 +757,29 @@ ${sanitizedText}
       const sanitizedRole = geminiServiceInstance.sanitizeInput(targetRole || 'Software Professional');
       const sanitizedContext = geminiServiceInstance.sanitizeInput(systemContext);
 
-      if (!geminiServiceInstance.isConfigured()) {
-        // Fallback simulated reply
-        return res.json({
-          text: `As your PathPilot AI Career Mentor specializing as **${coachMode.toUpperCase()}**, I've reviewed your profile context. To accelerate your path toward becoming a **${sanitizedRole}**, I recommend quantifying your recent software project achievements with concrete metrics, refining your top 5 target job applications, and practicing system architecture drills. What specific area would you like to focus on right now?`,
-        });
-      }
-
-      // Format conversation history and prompt into valid Gemini SDK contents structure
-      const contents = geminiServiceInstance.formatContents(history, messageText);
-
-      const modeInstructions: Record<string, string> = {
-        executive: 'You are an Executive Career Strategist & Tech Leadership Coach.',
-        interviewer: 'You are a Senior Technical & Behavioral Interviewer conducting high-signal interview drills.',
-        critic: 'You are an Uncompromising ATS Resume Critic & Portfolio Auditor.',
-        negotiator: 'You are an Expert Compensation & Salary Negotiation Strategist.',
-        mentor: 'You are a Senior Technical Architect & Engineering Mentor.',
-        general: 'You are PathPilot AI, an elite Silicon Valley Career Mentor Coach.'
+      const fallbackReply = {
+        text: `As your PathPilot AI Career Mentor specializing as **${coachMode.toUpperCase()}**, I've reviewed your profile context. To accelerate your path toward becoming a **${sanitizedRole}**, I recommend quantifying your recent software project achievements with concrete metrics, refining your top 5 target job applications, and practicing system architecture drills. What specific area would you like to focus on right now?`,
       };
 
-      const selectedPersona = modeInstructions[coachMode] || modeInstructions.general;
+      if (!geminiServiceInstance.isConfigured()) {
+        return res.json(fallbackReply);
+      }
 
-      const systemInstruction = `${selectedPersona}
+      try {
+        const contents = geminiServiceInstance.formatContents(history, messageText);
+
+        const modeInstructions: Record<string, string> = {
+          executive: 'You are an Executive Career Strategist & Tech Leadership Coach.',
+          interviewer: 'You are a Senior Technical & Behavioral Interviewer conducting high-signal interview drills.',
+          critic: 'You are an Uncompromising ATS Resume Critic & Portfolio Auditor.',
+          negotiator: 'You are an Expert Compensation & Salary Negotiation Strategist.',
+          mentor: 'You are a Senior Technical Architect & Engineering Mentor.',
+          general: 'You are PathPilot AI, an elite Silicon Valley Career Mentor Coach.'
+        };
+
+        const selectedPersona = modeInstructions[coachMode] || modeInstructions.general;
+
+        const systemInstruction = `${selectedPersona}
 Your primary directive is to guide the candidate toward their career target: "${sanitizedRole}".
 
 USER PROFILE & MEMORY CONTEXT:
@@ -790,18 +791,27 @@ GUIDELINES:
 3. Be direct, professional, encouraging, and pragmatic.
 4. Highlight concrete next steps, bullet improvements, or technical topics to master.`;
 
-      const response = await geminiServiceInstance.generateWithRetry({
-        model: 'gemini-3.6-flash',
-        contents,
-        config: {
-          systemInstruction,
-        },
-      });
+        const response = await geminiServiceInstance.generateWithRetry({
+          model: 'gemini-2.5-flash',
+          contents,
+          config: {
+            systemInstruction,
+          },
+        });
 
-      res.json({ text: response.text });
+        if (response?.text) {
+          return res.json({ text: response.text });
+        }
+        return res.json(fallbackReply);
+      } catch (geminiErr: any) {
+        console.warn('Gemini API call warning in /api/chat (using fallback):', geminiErr?.message || geminiErr);
+        return res.json(fallbackReply);
+      }
     } catch (error: any) {
       console.error('Error in /api/chat route:', error);
-      res.status(500).json({ error: error.message || 'Internal chat coach error.' });
+      return res.json({
+        text: `As your PathPilot AI Career Mentor, I'm ready to assist you on your target role path! Let's continue working on your career roadmap, interview drills, and resume optimizations.`
+      });
     }
   });
 
